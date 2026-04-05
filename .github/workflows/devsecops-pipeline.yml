@@ -18,7 +18,7 @@ jobs:
 
     - name: 📦 SCA (Software Composition Analysis)
       run: |
-        npm ci
+        npm install
         npm audit --audit-level=high
 
     - name: 🔑 Secret Scanning (TruffleHog)

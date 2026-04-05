@@ -1,0 +1,34 @@
+name: Ultimate DevSecOps Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  sast-and-sca:
+    name: Security Code Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with: { node-version: '18.x' }
+
+    - name: 📦 SCA (Software Composition Analysis)
+      run: |
+        npm ci
+        npm audit --audit-level=high
+
+    - name: 🔑 Secret Scanning (TruffleHog)
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: ${{ github.event.repository.default_branch }}
+        head: HEAD
+
+    - name: 🔬 SAST (Static Application Security Testing) via Semgrep
+      uses: returntocorp/semgrep-action@v1
+      with:
+        config: "p/owasp-top-ten"

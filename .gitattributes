@@ -1,0 +1,8 @@
+# İşletim sistemi (Windows/Mac/Linux) kaynaklı satır sonu farklılıklarını standartlaştırır
+* text=auto eol=lf
+
+# GitHub'da projenin dil istatistiklerini (JavaScript, Yaml) %100 doğru analiz etmesi için
+*.js linguist-language=JavaScript
+*.sh linguist-language=Shell
+*.yml linguist-language=YAML
+*.md linguist-language=Markdown
